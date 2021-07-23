@@ -1,0 +1,38 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage
+@{
+	Layout = null;
+}
+
+@* the fun starts here *@
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Movies Catalgoue</title>
+</head>
+<body>
+    <h1>MOVIES CATALOGUE</h1>
+    
+@RenderBody()
+
+
+					
+@{
+	var categories = Umbraco.ContentAtRoot().FirstOrDefault().ChildrenOfType("MovieCategory");
+}
+<ul>
+	@foreach (var category in categories)
+	    {
+            <h2>@category.Name</h2>
+            <ul>
+                @foreach(var item in category.Children)
+                    {
+                        <li>
+                            <h3>@item.Name</h3>
+                            <p>@item.Value("itemDescription")</p>
+                        </li>
+                    }
+            </ul>
+        }
+</ul>
+
